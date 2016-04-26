@@ -18,6 +18,7 @@
   "homepage": "https://github.com/6thSence/Gulp-#readme",
   "devDependencies": {
     "autoprefixer": "^6.3.6",
+    "browser-sync": "^2.12.5",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-clean": "^0.3.2",
@@ -29,6 +30,11 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.3.1",
     "gulp-sourcemaps": "^2.0.0-alpha",
-    "gulp-uglify": "^1.5.3"
+    "gulp-uglify": "^1.5.3",
+    "gulp-useref": "^3.0.8",
+    "gulp-wiredep": "0.0.0"
+  },
+  "dependencies": {
+    "gulp-series": "^1.0.2"
   }
 }

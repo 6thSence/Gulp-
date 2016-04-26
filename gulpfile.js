@@ -10,11 +10,28 @@ const notify = require('gulp-notify');
 const plumber = require('gulp-plumber');
 const sourcemaps = require('gulp-sourcemaps');
 const uglify = require('gulp-uglify');
+const wiredep = require('gulp-wiredep');
+const useref = require('gulp-useref');
+const browserSync = require('browser-sync').create();
 
-gulp.task('default', ['clean', 'build']);
-gulp.task('build', ['html', 'styles', 'scripts']);
+gulp.task('default', ['clean'], function() {
+	gulp.run('dev');
+});
 
-gulp.watch('src/styles/**/*.scss', ['styles']);
+gulp.task('production', ['clean'], function() {
+	gulp.run('build');
+});
+
+gulp.task('dev', ['build', 'watch', 'browser-sync']);
+gulp.task('build', ['html', 'styles', 'scripts', 'assets']);
+
+gulp.task('watch', function() {
+	gulp.watch('src/styles/**/*.scss', ['styles']);
+    gulp.watch('src/js/**/*.js', ['scripts']);
+    gulp.watch(['./bower.json', 'src/index.html'], ['html']);
+    gulp.watch('./src/assets/**/*.*'. ['assets']);
+    gulp.watch('build/**/*.*').on('change', browserSync.reload);
+});
 
 gulp.task('styles', function() {
 	return gulp.src('src/styles/{main,about}.scss')
@@ -49,13 +66,37 @@ gulp.task('clean', function() {
 })
 
 gulp.task('html', function() {
-	return gulp.src('src/**/*.html')
+	gulp.src('src/index.html')
+		.pipe(wiredep({
+			directory: 'bower_components/'
+		}))
+		.pipe(gulp.dest('build/'))
+		.on('end', function() {
+			gulp.run('useref');
+		});
+});
+
+gulp.task('useref', function() {
+	return gulp.src('build/index.html')
+		.pipe(useref())
 		.pipe(gulp.dest('build/'));
 });
 
 gulp.task('scripts', function() {
 	return gulp.src('src/js/*.js')
-		.pipe(concat('scripts.js'))
 		.pipe(uglify())
 		.pipe(gulp.dest('build/js'));
+});
+
+gulp.task('browser-sync', function() {
+	browserSync.init({
+		server: {
+			baseDir: './build/'
+		}
+	});
+});
+
+gulp.task('assets', function() {
+	return gulp.src('./src/assets/**/*.*')
+		.pipe(gulp.dest(./build/assets));
 });
