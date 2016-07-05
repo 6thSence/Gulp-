@@ -1,18 +1,18 @@
-const gulp = require('gulp');
-const sass = require('gulp-sass');
-const autoprefixer = require('gulp-autoprefixer');
-const concat = require('gulp-concat');
-const cssnano = require('gulp-cssnano');
-const rename = require('gulp-rename');
-const compass = require('gulp-compass');
-const clean = require('gulp-clean');
-const notify = require('gulp-notify');
-const plumber = require('gulp-plumber');
-const sourcemaps = require('gulp-sourcemaps');
-const uglify = require('gulp-uglify');
-const wiredep = require('gulp-wiredep');
-const useref = require('gulp-useref');
-const browserSync = require('browser-sync').create();
+var gulp = require('gulp');
+var sass = require('gulp-sass');
+var autoprefixer = require('gulp-autoprefixer');
+var concat = require('gulp-concat');
+var cssnano = require('gulp-cssnano');
+var rename = require('gulp-rename');
+var compass = require('gulp-compass');
+var clean = require('gulp-clean');
+var notify = require('gulp-notify');
+var plumber = require('gulp-plumber');
+var sourcemaps = require('gulp-sourcemaps');
+var uglify = require('gulp-uglify');
+var wiredep = require('gulp-wiredep');
+var useref = require('gulp-useref');
+var browserSync = require('browser-sync').create();
 
 // Задача с названием 'default' запускается автоматически по команде 'gulp' в консоле.
 // Эта конструкция работает синхронно, сначала выполняется задача 'clean' и только после ее завершнения запускается 'dev'.
