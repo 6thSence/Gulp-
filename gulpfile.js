@@ -36,9 +36,9 @@ gulp.task('watch', function() {
     gulp.watch('src/js/**/*.js', ['scripts']); //скрипты
     gulp.watch(['./bower.json', 'src/index.html'], ['html']); // html
     gulp.watch('./src/assets/**/*.*', ['assets']); //наши локальные файлы(картинки, шрифты)
-    gulp.watch('src/**/*.{js,css}').on('change', browserSync.reload); //Перезапуск browserSynс
+    gulp.watch('src/**/*.*').on('change', browserSync.reload); //Перезапуск browserSynс
 });
-// Задача 'styles' выполняет сборку наших стилей.\
+// Задача 'styles' выполняет сборку наших стилей.
 gulp.task('styles', function() {
 	return gulp.src('src/styles/{main,about}.scss')
 		.pipe(plumber({ // plumber - плагин для отловли ошибок.
@@ -78,7 +78,7 @@ gulp.task('html', function() {
 });
 
 gulp.task('useref', function() {
-	gulp.src('build/index.html')
+	return gulp.src('build/index.html')
 		.pipe(useref()) //Выполняет объединение файлов в один по указанным в разметке html комментариев.
 		.pipe(gulp.dest('build/'));
 });
@@ -86,10 +86,7 @@ gulp.task('useref', function() {
 gulp.task('scripts', function() {
 	gulp.src('src/js/*.js')
 		.pipe(uglify()) //Минификация скриптов.
-		.pipe(gulp.dest('build/js'))
-		.on('end', function() { //запуск задачу 'useref' по завершению задачи 'html'.
-			gulp.run('html');
-		});
+		.pipe(gulp.dest('build/js'));
 });
 //Задача для запуска сервера.
 gulp.task('browser-sync', function() {
