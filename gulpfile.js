@@ -36,7 +36,7 @@ gulp.task('watch', function() {
     gulp.watch('src/js/**/*.js', ['scripts']); //скрипты
     gulp.watch(['./bower.json', 'src/index.html'], ['html']); // html
     gulp.watch('./src/assets/**/*.*', ['assets']); //наши локальные файлы(картинки, шрифты)
-    gulp.watch('src/**/*.*').on('change', browserSync.reload); //Перезапуск browserSynс
+    gulp.watch('src/**/*.*').on('change', browserSync.reload()); //Перезапуск browserSynс
 });
 // Задача 'styles' выполняет сборку наших стилей.
 gulp.task('styles', function() {
